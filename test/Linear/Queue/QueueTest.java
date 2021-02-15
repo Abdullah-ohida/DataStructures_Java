@@ -21,8 +21,27 @@ class QueueTest {
 
     @Test
     void queue_canAddElementToQueue(){
+        addToQueue();
+        assertEquals(5, queue.getSize());
+    }
+
+    private void addToQueue() {
         int value = 9;
         queue.enqueue(value);
-        assertEquals(1, queue.getSize());
+        queue.enqueue(3);
+        queue.enqueue(4);
+        queue.enqueue(9);
+        queue.enqueue(100);
+    }
+
+    @Test
+    void queue_canGetFirstElementPushedOntoTheQueue(){
+        addToQueue();
+        int frontElement = queue.front();
+        assertEquals(9, frontElement);
+    }
+
+    void queue_canRemoveTheFirstElementPushedToTheQueue(){
+        addToQueue();
     }
 }
