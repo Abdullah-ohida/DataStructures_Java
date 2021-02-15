@@ -33,4 +33,25 @@ public class Queue {
         final int FIRST_INDEX = 0;
         return elements[FIRST_INDEX];
     }
+
+    public void dequeue() {
+        int[] removedArr = new int[elements.length - 1];
+            System.arraycopy(elements, 1, removedArr, 0, elements.length - 1);
+            elements = removedArr;
+        size--;
+    }
+
+    public void dequeue(int index) {
+        if(index < 0 || index >= elements.length){
+            throw  new IllegalArgumentException("Index not fund");
+        }
+        int[] removedArr = new int[elements.length - 1];
+        System.arraycopy(elements, 1, removedArr, 0, elements.length - 1 - index);
+        elements = removedArr;
+        size--;
+    }
+
+    public boolean isEmpty() {
+        return size == 0;
+    }
 }

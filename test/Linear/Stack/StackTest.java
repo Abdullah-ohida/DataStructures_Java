@@ -25,7 +25,6 @@ class StackTest {
     void stack_canAddElementToStack(){
         addElementToStack();
         assertEquals(5, stack.getSize());
-        System.out.println(Arrays.toString(stack.getStack()));
     }
 
     private void addElementToStack() {
@@ -66,7 +65,7 @@ class StackTest {
             stack.pop(6);
             assertEquals(4, stack.getSize());
         }catch (IllegalArgumentException exception){
-            System.out.println(exception.getMessage());
+            System.err.println(exception.getMessage());
         }
 
     }

@@ -35,16 +35,30 @@ public class Stack {
         return elements[lastIndex];
     }
     public void pop() {
-        if (elements.length - 1 >= 0) System.arraycopy(elements, 1, elements, 0, elements.length - 1);
+        int[] newArr = new int[elements.length - 1];
+        int lastIndex = getSize() - 1;
+        for (int count = 0; count < elements.length - 1; count++){
+            if(lastIndex == count){
+                continue;
+            }
+            newArr[count] = elements[count];
+        }
+        elements = newArr;
         size--;
     }
 
     public void pop(int index){
+        int[] newArr = new int[elements.length - 1];
         if(index < 0 || index >= size){
             throw new IllegalArgumentException("Index not fund");
         }
-        if (elements.length - 1 - index >= 0)
-            System.arraycopy(elements, index + 1, elements, index, elements.length - 1 - index);
+           for (int count = 0; count < elements.length - 1; count++){
+               if(index == count){
+                   continue;
+               }
+               newArr[count] = elements[count];
+           }
+           elements = newArr;
         size--;
     }
 
@@ -52,8 +66,4 @@ public class Stack {
         return size == 0;
    }
 
-
-    public int[] getStack() {
-        return elements;
-    }
 }
