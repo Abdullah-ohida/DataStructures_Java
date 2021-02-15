@@ -38,7 +38,7 @@ class StackTest {
     }
 
     @Test
-    void stack_canTheLastElementPushedOntoTheStack(){
+    void stack_canGetLastElementPushedOntoTheStack(){
         addElementToStack();
         int top = stack.top();
         assertEquals(100, top);
