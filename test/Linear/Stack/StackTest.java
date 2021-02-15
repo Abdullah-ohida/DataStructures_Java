@@ -60,6 +60,19 @@ class StackTest {
     }
 
     @Test
+    void stack_canNotAccessIndexOfElementInStack(){
+        addElementToStack();
+        try {
+            stack.pop(6);
+            assertEquals(4, stack.getSize());
+        }catch (IllegalArgumentException exception){
+            System.out.println(exception.getMessage());
+        }
+
+    }
+
+
+    @Test
     void stack_canBeEmpty(){
         stack.push(7);
         stack.pop();

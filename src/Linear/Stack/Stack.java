@@ -1,7 +1,5 @@
 package Linear.Stack;
 
-import java.util.Arrays;
-
 public class Stack {
     private int[] elements;
     private int size;
