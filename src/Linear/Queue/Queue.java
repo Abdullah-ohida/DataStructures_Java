@@ -28,4 +28,9 @@ public class Queue {
     public int getSize() {
         return size;
     }
+
+    public int front() {
+        final int FIRST_INDEX = 0;
+        return elements[FIRST_INDEX];
+    }
 }
