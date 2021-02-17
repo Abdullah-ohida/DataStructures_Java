@@ -1,6 +1,6 @@
 package Linear.linked_list;
 
-import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 public class LinkedList {
     private Node head;
@@ -30,5 +30,31 @@ public class LinkedList {
             currentNode = currentNode.getPointer();
         }
         return data.toString();
+    }
+
+    public void insertAtEnd(int data) {
+        Node newNode = new Node(data);
+
+        if(head == null){
+            head = newNode;
+            return;
+        }
+        newNode.setPointer(null);
+        Node last = head;
+        while (last.getPointer() != null){
+            last = last.getPointer();
+            last.setPointer(newNode);
+        }
+    }
+
+    public int getHeadData() {
+        if(isEmpty()){
+            throw new NoSuchElementException("No such element exist in list");
+        }
+        return head.getData();
+    }
+
+    public int getTail() {
+        return 0;
     }
 }
