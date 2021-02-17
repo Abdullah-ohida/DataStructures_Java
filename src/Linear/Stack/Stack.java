@@ -1,6 +1,6 @@
 package Linear.Stack;
 
-public class Stack {
+ public class Stack {
     private int[] elements;
     private int size;
     private static final int DEFAULT_CAPACITY = 1;
