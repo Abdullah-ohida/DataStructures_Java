@@ -1,57 +1,40 @@
 package Linear.Queue;
 
+import Linear.Stack.Stack;
+
 public class Queue {
     private int[] elements;
-    private int size;
-    private static final int DEFAULT_CAPACITY = 1;
-    public Queue() {
-        this(DEFAULT_CAPACITY);
-    }
+    private int size = -1;
 
     public Queue(int capacity) {
-        this.elements = new int[capacity];
+        elements = new int[capacity];
     }
 
     public void enqueue(int value) {
-        if(size >= elements.length){
-            resizeQueue();
-        }
-        elements[size++] = value;
-    }
-
-    private void resizeQueue() {
-        int[] temp = new int[elements.length * 2];
-        System.arraycopy(elements, 0, temp, 0, elements.length);
-        elements = temp;
-    }
-
-    public int getSize() {
-        return size;
+        if(isFull()) throw new Stack.StackOverFlowException("Queue is full");
+        elements[++size] = value;
     }
 
     public int front() {
+        if(isEmpty()) throw new Stack.StackUnderFlowException("Queue is empty");
         final int FIRST_INDEX = 0;
         return elements[FIRST_INDEX];
     }
 
-    public void dequeue() {
-        int[] removedArr = new int[elements.length - 1];
-            System.arraycopy(elements, 1, removedArr, 0, elements.length - 1);
-            elements = removedArr;
-        size--;
-    }
+    public int dequeue() {
+        if(isEmpty()) throw new Stack.StackUnderFlowException("Queue is empty");
+        int firstIndex = elements.length - 1 - size;
+        int firstElement = elements[firstIndex];
+        elements[size--] = 0;
+        return firstElement;
 
-    public void dequeue(int index) {
-        if(index < 0 || index >= elements.length || isEmpty()){
-            throw  new IllegalArgumentException("Index not fund");
-        }
-        int[] removedArr = new int[elements.length - 1];
-        System.arraycopy(elements, 1, removedArr, 0, elements.length - 1 - index);
-        elements = removedArr;
-        size--;
     }
 
     public boolean isEmpty() {
-        return size == 0;
+        return size == -1;
+    }
+
+    public boolean isFull(){
+        return size == (elements.length - 1);
     }
 }

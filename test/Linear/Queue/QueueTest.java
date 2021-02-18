@@ -1,5 +1,6 @@
 package Linear.Queue;
 
+import Linear.Stack.Stack;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,7 +14,7 @@ class QueueTest {
 
     @BeforeEach
     void setUp() {
-        queue = new Queue();
+        queue = new Queue(4);
     }
 
     @AfterEach
@@ -24,7 +25,7 @@ class QueueTest {
     @Test
     void queue_canAddElementToQueue(){
         addToQueue();
-        assertEquals(5, queue.getSize());
+        assertEquals(1, queue.front());
     }
 
     private void addToQueue() {
@@ -33,7 +34,6 @@ class QueueTest {
         queue.enqueue(2);
         queue.enqueue(3);
         queue.enqueue(4);
-        queue.enqueue(5);
     }
 
     @Test
@@ -46,34 +46,50 @@ class QueueTest {
     @Test
     void queue_canRemoveTheFirstElementPushedToTheQueue(){
         addToQueue();
+        assertEquals(1,  queue.dequeue());
+    }
+
+    @Test
+    void enqueueTwo_dequeueTwo_ElementShouldBeEmpty(){
+        queue.enqueue(11);
+        queue.enqueue(8);
+
         queue.dequeue();
-        queue.dequeue();
-        assertEquals(3, queue.getSize());
-    }
-
-    @Test
-    void queue_canRemoveElementAtSpecificPositionOnQueue(){
-        addToQueue();
-        queue.dequeue(1);
-        assertEquals(4, queue.getSize());
-    }
-
-    @Test
-    void stack_canNotAccessIndexOfElementInStack(){
-        addToQueue();
-        try {
-            queue.dequeue(9);
-            assertEquals(4, queue.getSize());
-        }catch (IllegalArgumentException exception){
-            System.err.println(exception.getMessage());
-        }
-
-    }
-
-    @Test
-    void stack_canBeEmpty(){
-        queue.enqueue(7);
         queue.dequeue();
         assertTrue(queue.isEmpty());
     }
+
+    @Test
+    void pushThreeElement_ShouldBeFull(){
+        Queue queue = new Queue(3);
+        queue.enqueue(11);
+        queue.enqueue(8);
+        queue.enqueue(7);
+
+        assertTrue(queue.isFull());
+    }
+
+    @Test
+    void pushOneElement_AfterStackIsFull_ThrowsException(){
+        Queue queue= new Queue(3);
+        queue.enqueue(11);
+        queue.enqueue(8);
+        queue.enqueue(7);
+        assertTrue(queue.isFull());
+
+        assertThrows(Stack.StackOverFlowException.class, ()-> queue.enqueue(9));
+    }
+
+    @Test
+    void removeLastElementWhenStackIsEmpty_ThrowsStackUnderFlow(){
+        assertTrue(queue.isEmpty());
+        assertThrows(Stack.StackUnderFlowException.class, ()-> queue.dequeue());
+    }
+
+    @Test
+    void peekEmptyStack_ThrowsStackUnderFlowException(){
+        assertTrue(queue.isEmpty());
+        assertThrows(Stack.StackUnderFlowException.class, ()-> queue.front());
+    }
+
 }
