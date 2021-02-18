@@ -51,11 +51,14 @@ public class LinkedList {
         if(isEmpty()){
             throw new NoSuchElementException("No such element exist in list");
         }
-        return head.getData();
+            return head.getData();
     }
 
     public int getTail() {
-        return 0;
+        if(isEmpty()){
+            throw new NoSuchElementException("No such element exist in list");
+        }
+        return head.getData();
     }
 
     public void insertAfter(Node prevNode, int data) {

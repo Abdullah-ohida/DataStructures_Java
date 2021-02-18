@@ -2,68 +2,50 @@ package Linear.Stack;
 
  public class Stack {
     private int[] elements;
-    private int size;
-    private static final int DEFAULT_CAPACITY = 1;
-
-    public Stack(){
-        this(DEFAULT_CAPACITY);
-    }
+    private int size = -1;
 
     public Stack(int capacity) {
         this.elements = new int[capacity];
     }
 
-    public void push(int value) {
-        if(size >= elements.length){
-            resizeStack();
+     public void push(int data) {
+        if(isFull()) throw new StackOverFlowException("Stack is full");
+            elements[++size] = data;
+
+     }
+
+     public int peek() {
+        if(isEmpty()) throw new StackUnderFlowException("Stack is empty");
+            return elements[size];
+     }
+
+     public int pop() {
+            if(isEmpty()) throw new StackUnderFlowException("Stack is empty");
+             int lastElement = elements[size];
+             elements[size--] = 0;
+             return lastElement;
+
+     }
+
+     public boolean isEmpty() {
+        return size == -1;
+     }
+
+     public boolean isFull() {
+        return (size == (elements.length - 1));
+     }
+
+     public static class StackOverFlowException extends RuntimeException{
+        public StackOverFlowException(String message){
+            super(message);
         }
-        elements[size++] = value;
-    }
+     }
 
-    private void resizeStack() {
-        int[] temp = new int[elements.length * 2];
-        System.arraycopy(elements, 0, temp, 0, elements.length);
-        elements = temp;
-    }
+     public static class StackUnderFlowException extends RuntimeException{
+         public StackUnderFlowException(String message){
+             super(message);
+         }
+     }
+ }
 
-    public int getSize() {
-        return size;
-    }
 
-    public int top(){
-        int lastIndex = getSize() - 1;
-        return elements[lastIndex];
-    }
-    public void pop() {
-        int[] newArr = new int[elements.length - 1];
-        int lastIndex = getSize() - 1;
-        for (int count = 0; count < elements.length - 1; count++){
-            if(lastIndex == count){
-                continue;
-            }
-            newArr[count] = elements[count];
-        }
-        elements = newArr;
-        size--;
-    }
-
-    public void pop(int index){
-        int[] newArr = new int[elements.length - 1];
-        if(index < 0 || index >= size){
-            throw new IllegalArgumentException("Index not fund");
-        }
-           for (int count = 0; count < elements.length - 1; count++){
-               if(index == count){
-                   continue;
-               }
-               newArr[count] = elements[count];
-           }
-           elements = newArr;
-        size--;
-    }
-
-   public boolean isEmpty(){
-        return size == 0;
-   }
-
-}

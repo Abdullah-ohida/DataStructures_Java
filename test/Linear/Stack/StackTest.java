@@ -4,8 +4,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class StackTest {
@@ -13,7 +11,7 @@ class StackTest {
 
     @BeforeEach
     void setUp() {
-        stack = new Stack();
+        stack = new Stack(5);
     }
 
     @AfterEach
@@ -22,59 +20,61 @@ class StackTest {
     }
 
     @Test
-    void stack_canAddElementToStack(){
-        addElementToStack();
-        assertEquals(5, stack.getSize());
-    }
-
-    private void addElementToStack() {
-        int value = 7;
-        stack.push(value);
-        stack.push(3);
-        stack.push(4);
-        stack.push(9);
-        stack.push(100);
-    }
-
-    @Test
-    void stack_canGetLastElementPushedOntoTheStack(){
-        addElementToStack();
-        int top = stack.top();
-        assertEquals(100, top);
-    }
-
-    @Test
-    void stack_canRemoveTheLastElementPushedIn(){
-        addElementToStack();
-        stack.pop();
-        stack.pop();
-        assertEquals(3, stack.getSize());
-    }
-
-    @Test
-    void stack_canRemoveSpecificElementFromStack(){
-        addElementToStack();
-        stack.pop(2);
-        assertEquals(4, stack.getSize());
-    }
-
-    @Test
-    void stack_canNotAccessIndexOfElementInStack(){
-        addElementToStack();
-        try {
-            stack.pop(6);
-            assertEquals(4, stack.getSize());
-        }catch (IllegalArgumentException exception){
-            System.err.println(exception.getMessage());
-        }
-
-    }
-
-
-    @Test
-    void stack_canBeEmpty(){
+    void stack_canAddElementToStack() {
         stack.push(7);
+        stack.push(8);
+        assertEquals(8, stack.peek());
+    }
+
+    @Test
+    void pushTwoElement_popOneTest(){
+        stack.push(7);
+        stack.push(8);
+        assertEquals(8, stack.pop());
+        assertEquals(7, stack.peek());
+    }
+
+    @Test
+    void pushTwo_PopTwo_ElementShouldBeEmpty(){
+        stack.push(11);
+        stack.push(8);
+
+        stack.pop();
         stack.pop();
         assertTrue(stack.isEmpty());
     }
+
+    @Test
+    void pushThreeElement_ShouldBeFull(){
+        Stack stack = new Stack(3);
+        stack.push(11);
+        stack.push(8);
+        stack.push(7);
+
+        assertTrue(stack.isFull());
+    }
+
+    @Test
+    void pushOneElement_AfterStackIsFull_ThrowsException(){
+        Stack stack = new Stack(3);
+        stack.push(11);
+        stack.push(8);
+        stack.push(7);
+        assertTrue(stack.isFull());
+
+        assertThrows(Stack.StackOverFlowException.class, ()-> stack.push(9));
+    }
+
+    @Test
+    void removeLastElementWhenStackIsEmpty_ThrowsStackUnderFlow(){
+        assertTrue(stack.isEmpty());
+        assertThrows(Stack.StackUnderFlowException.class, ()-> stack.pop());
+    }
+
+    @Test
+    void peekEmptyStack_ThrowsStackUnderFlowException(){
+        assertTrue(stack.isEmpty());
+        assertThrows(Stack.StackUnderFlowException.class, ()-> stack.peek());
+    }
+
 }
