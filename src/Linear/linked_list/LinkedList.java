@@ -57,4 +57,61 @@ public class LinkedList {
     public int getTail() {
         return 0;
     }
+
+    public void insertAfter(Node prevNode, int data) {
+        if(prevNode == null){
+           throw new NullPointerException("Previous node address is not found");
+        }
+
+        Node newNode = new Node(data);
+        newNode.setPointer(prevNode.getPointer());
+        prevNode.setPointer(newNode);
+    }
+
+    public Node getHead() {
+        return head;
+    }
+
+    public void deleteNode(int position) {
+        if(isEmpty()){
+            return;
+        }
+        Node temp = head;
+        if(position == 0){
+            head = temp.getPointer();
+            return;
+        }
+        temp = getDeletedPointer(position, temp);
+        if(isPointerExist(temp))
+                return;
+
+        removeNode(temp);
+
+    }
+
+    private boolean isPointerExist(Node temp) {
+        return temp == null || temp.getPointer() == null;
+    }
+
+    private Node getDeletedPointer(int position, Node temp) {
+        for(int count = 1; temp != null && count < position - 1; count++)
+            temp = temp.getPointer();
+        return temp;
+    }
+
+    private void removeNode(Node temp) {
+        Node next = temp.getPointer().getPointer();
+        temp.setPointer(next);
+    }
+
+    public Node search(int data) {
+        Node temp = head;
+        while (temp != null){
+            if(temp.getData() == data){
+                return temp;
+            }
+            temp = temp.getPointer();
+        }
+        return null;
+    }
 }

@@ -37,6 +37,12 @@ class LinkedListTest {
         list.insertAtBeginning(50);
     }
 
+
+    private void addDataToTheEndOfList(){
+        list.insertAtEnd(45);
+        list.insertAtEnd(50);
+    }
+
     @Test
     void linkedList_canPrintOutAllDataPrintOnList() {
         addDataToTheBeginningOfList();
@@ -52,16 +58,44 @@ class LinkedListTest {
     }
 
     @Test
-    void linkedList_canGetFirstDataFromList(){
+    void linkedList_canInsertDataAtASpecificPositionOnList(){
         addDataToTheBeginningOfList();
-        assertEquals(20, list.getHeadData());
+        Node node = list.getHead().getPointer();
+        list.insertAfter(node , 9);
+        assertFalse(list.isEmpty());
+        String expected =  "50 45 9 20 ";
+        assertEquals(expected, list.printList(list));
     }
 
     @Test
-    void linkedList_canGetLastDataFromList(){
+    void linkedList_canDeleteElementAtSpecificPositionOnList(){
         addDataToTheBeginningOfList();
-        assertEquals(8, list.getTail());
+        int position = 1;
+        list.deleteNode(position);
+        assertFalse(list.isEmpty());
+        String expected =  "50 20 ";
+        assertEquals(expected, list.printList(list));
     }
+
+    @Test
+    void linkedList_canSearchASpecificDataOnLinkedList(){
+        list.insertAtBeginning(50);
+        int data = 50;
+        Node node = list.search(data);
+        assertEquals(list.getHead(), node);
+    }
+
+//    @Test
+//    void linkedList_canGetFirstDataFromList(){
+//        addDataToTheBeginningOfList();
+//        assertEquals(20, list.getHeadData());
+//    }
+//
+//    @Test
+//    void linkedList_canGetLastDataFromList(){
+//        addDataToTheBeginningOfList();
+//        assertEquals(8, list.getTail());
+//    }
 
 }
 
