@@ -56,11 +56,18 @@ class QueueTest {
 
         queue.dequeue();
         queue.dequeue();
-        assertTrue(queue.isEmpty());
+
+        queue.enqueue(11);
+        queue.enqueue(8);
+
+        queue.dequeue();
+
+        System.out.println(Arrays.toString(queue.getElement()));
+        assertEquals(0, queue.getQueueLength());
     }
 
     @Test
-    void pushThreeElement_ShouldBeFull(){
+    void enqueueThreeElement_ShouldBeFull(){
         Queue queue = new Queue(3);
         queue.enqueue(11);
         queue.enqueue(8);
@@ -70,7 +77,7 @@ class QueueTest {
     }
 
     @Test
-    void pushOneElement_AfterStackIsFull_ThrowsException(){
+    void enqueueOneElement_AfterStackIsFull_ThrowsException(){
         Queue queue= new Queue(3);
         queue.enqueue(11);
         queue.enqueue(8);
@@ -81,13 +88,13 @@ class QueueTest {
     }
 
     @Test
-    void removeLastElementWhenStackIsEmpty_ThrowsStackUnderFlow(){
+    void dequeueFirstElementWhenQueueIsEmptyIsEmpty_ThrowsStackUnderFlow(){
         assertTrue(queue.isEmpty());
         assertThrows(Stack.StackUnderFlowException.class, ()-> queue.dequeue());
     }
 
     @Test
-    void peekEmptyStack_ThrowsStackUnderFlowException(){
+    void frontEmptyStack_ThrowsStackUnderFlowException(){
         assertTrue(queue.isEmpty());
         assertThrows(Stack.StackUnderFlowException.class, ()-> queue.front());
     }

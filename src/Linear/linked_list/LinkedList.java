@@ -4,6 +4,7 @@ import java.util.NoSuchElementException;
 
 public class LinkedList {
     private Node head;
+    private Node tail;
 
     public LinkedList() {
         this.head = null;
@@ -15,6 +16,7 @@ public class LinkedList {
 
     public void insertAtBeginning(int data) {
        Node newNode = new Node(data);
+       tail = head;
        newNode.setPointer(head);
        head = newNode;
     }
@@ -26,7 +28,6 @@ public class LinkedList {
 
         while (currentNode != null){
             data.append(currentNode.getData()).append(" ");
-
             currentNode = currentNode.getPointer();
         }
         return data.toString();
@@ -42,7 +43,6 @@ public class LinkedList {
         newNode.setPointer(null);
         Node last = head;
         while (last.getPointer() != null){
-            last = last.getPointer();
             last.setPointer(newNode);
         }
     }
@@ -58,7 +58,8 @@ public class LinkedList {
         if(isEmpty()){
             throw new NoSuchElementException("No such element exist in list");
         }
-        return head.getData();
+        Node last = head;
+       return last.getData();
     }
 
     public void insertAfter(Node prevNode, int data) {

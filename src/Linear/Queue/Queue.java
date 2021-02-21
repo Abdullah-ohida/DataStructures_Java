@@ -2,6 +2,8 @@ package Linear.Queue;
 
 import Linear.Stack.Stack;
 
+import java.util.Arrays;
+
 public class Queue {
     private int[] elements;
     private int size = -1;
@@ -21,13 +23,22 @@ public class Queue {
         return elements[FIRST_INDEX];
     }
 
+
     public int dequeue() {
         if(isEmpty()) throw new Stack.StackUnderFlowException("Queue is empty");
-        int firstIndex = elements.length - 1 - size;
-        int firstElement = elements[firstIndex];
-        elements[size--] = 0;
+        int firstIndex = 0;
+        int firstElement = 0;
+        for(int count = 0; count < elements.length; count++){
+            if(elements[count] == 0){
+                firstIndex++;
+            }else {
+                firstElement = elements[firstIndex];
+                elements[firstIndex] = 0;
+                size--;
+                break;
+            }
+        }
         return firstElement;
-
     }
 
     public boolean isEmpty() {
@@ -36,5 +47,13 @@ public class Queue {
 
     public boolean isFull(){
         return size == (elements.length - 1);
+    }
+
+    public int getQueueLength(){
+        return size;
+    }
+
+    public int[] getElement(){
+        return elements;
     }
 }

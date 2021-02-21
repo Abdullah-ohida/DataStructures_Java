@@ -48,6 +48,11 @@ class LinkedListTest {
     void linkedList_canInsertNodeAtTheEndOfList() {
         int value = 8;
         list.insertAtEnd(value);
+        list.insertAtEnd(5);
+        list.insertAtEnd(9);
+        list.insertAtEnd(10);
+        list.insertAtEnd(50);
+        assertEquals(8, list.getHeadData());
         assertFalse(list.isEmpty());
     }
 
@@ -81,18 +86,29 @@ class LinkedListTest {
 
     @Test
     void linkedList_canGetFirstDataFromList(){
-        list.insertAtBeginning(5);
-        list.insertAtBeginning(9);
-        list.insertAtBeginning(10);
-        list.insertAtBeginning(50);
+        list.insertAtEnd(5);
+        list.insertAtEnd(9);
+        list.insertAtEnd(10);
+        list.insertAtEnd(50);
+        System.out.println(list.printList(list));
         assertEquals(5, list.getHeadData());
     }
 
     @Test
     void linkedList_canGetLastDataFromList(){
-        addDataToTheBeginningOfList();
+//        list.insertAtBeginning(5);
+//        list.insertAtBeginning(9);
+//        list.insertAtBeginning(10);
+//        list.insertAtBeginning(50);
+//        assertEquals(5, list.getTail());
 
-        assertEquals(9, list.getTail());
+        list.insertAtEnd(5);
+        list.insertAtEnd(9);
+        list.insertAtEnd(10);
+        list.insertAtEnd(50);
+        System.out.println(list.printList(list));
+        assertEquals(50, list.getTail());
+
     }
 
 }
