@@ -25,6 +25,7 @@ class BinaryTreeTest {
         assertTrue(binaryTree.containsNode(6));
         assertTrue(binaryTree.containsNode(4));
 
+
         assertFalse(binaryTree.containsNode(1));
     }
 

@@ -29,7 +29,7 @@ public class Queue {
         int firstIndex = 0;
         int firstElement = 0;
         for(int count = 0; count < elements.length; count++){
-            if(elements[count] == 0){
+            if(elements[0] == 0){
                 firstIndex++;
             }else {
                 firstElement = elements[firstIndex];

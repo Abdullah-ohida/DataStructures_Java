@@ -51,15 +51,13 @@ class QueueTest {
 
     @Test
     void enqueueTwo_dequeueTwo_ElementShouldBeEmpty(){
-        queue.enqueue(11);
-        queue.enqueue(8);
+        queue.enqueue(1);
+        queue.enqueue(1);
+        queue.enqueue(0);
+        queue.enqueue(4);
 
         queue.dequeue();
         queue.dequeue();
-
-        queue.enqueue(11);
-        queue.enqueue(8);
-
         queue.dequeue();
 
         System.out.println(Arrays.toString(queue.getElement()));
