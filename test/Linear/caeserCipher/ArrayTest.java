@@ -34,14 +34,14 @@ class ArrayTest {
 
     @Test
     void plainText_canBeDecrypted(){
-        String name = "THE EAGLE IS IN PLAY; MEET AT JOE’S";
+        String name = "ADE";
         String decryptedString = cipher.decrypt(name);
-        assertEquals("WKH HDJOH LV LQ SODB; PHHW DW MRH’V", decryptedString);
+        assertEquals("XAB", decryptedString);
     }
 
     @Test
     void cipher_canBeEncrypted(){
-        String name = "THE EAGLE IS IN PLAY; MEET AT JOE’S";
+        String name = "ADE";
         String decryptedString = cipher.decrypt(name);
         String encryptedString = cipher.encrypt(decryptedString);
         assertEquals(name, encryptedString);
