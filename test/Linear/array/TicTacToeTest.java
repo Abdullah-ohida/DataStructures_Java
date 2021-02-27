@@ -1,4 +1,4 @@
-package Linear;
+package Linear.array;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

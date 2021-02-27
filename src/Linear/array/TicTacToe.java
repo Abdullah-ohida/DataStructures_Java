@@ -1,4 +1,5 @@
-package Linear;
+package Linear.array;
+
 import java.util.Arrays;
 
 public class TicTacToe {
