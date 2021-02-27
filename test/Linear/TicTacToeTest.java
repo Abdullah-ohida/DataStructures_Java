@@ -4,7 +4,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -108,7 +107,6 @@ class TicTacToeTest {
         ticTacToe.play(0, 1);
         ticTacToe.play(2, 0);
         ticTacToe.play(0, 2);
-        System.out.println(ticTacToe.toString());
 
        assertTrue(ticTacToe.checkWin());
 
@@ -118,10 +116,67 @@ class TicTacToeTest {
         ticTacToe.play(0, 1);
         ticTacToe.play(2, 0);
         ticTacToe.play(0, 2);
+
+
+        assertTrue(ticTacToe.checkWin());
+    }
+
+    @Test
+    void TicTacToe_checkIfPlayerWinOnColumn(){
+        ticTacToe.play(0, 0);
+        ticTacToe.play(0, 1);
+        ticTacToe.play(1, 0);
+        ticTacToe.play(1, 1);
+        ticTacToe.play(2, 2);
+        ticTacToe.play(2, 1);
         System.out.println(ticTacToe.toString());
 
         assertTrue(ticTacToe.checkWin());
     }
 
+    @Test
+    void TicTacToe_checkIfPlayerWinOnDiagonal(){
+        ticTacToe.play(0, 0);
+        ticTacToe.play(0, 1);
+        ticTacToe.play(1, 1);
+        ticTacToe.play(1, 0);
+        ticTacToe.play(2, 2);
+        ticTacToe.play(2, 1);
+        System.out.println(ticTacToe.toString());
+
+        assertTrue(ticTacToe.checkWin());
+    }
+
+    @Test
+    void TicTacToeBoard_isFullWithoutWinner(){
+        ticTacToe.play(0, 0);
+        ticTacToe.play(0, 1);
+        ticTacToe.play(0, 2);
+        ticTacToe.play(1, 0);
+        ticTacToe.play(1, 1);
+        ticTacToe.play(2, 2);
+        ticTacToe.play(1, 2);
+        ticTacToe.play(2, 0);
+        ticTacToe.play(2, 1);
+
+        System.out.println(ticTacToe.toString());
+
+        assertTrue(ticTacToe.isFull());
+    }
+
+    @Test
+    void TicTacToeBoard_isFullNotWithoutWinner(){
+        ticTacToe.play(0, 0);
+        ticTacToe.play(0, 1);
+        ticTacToe.play(0, 2);
+        ticTacToe.play(1, 0);
+        ticTacToe.play(1, 1);
+        ticTacToe.play(2, 2);
+        ticTacToe.play(1, 2);
+
+        System.out.println(ticTacToe.toString());
+
+        assertFalse(ticTacToe.isFull());
+    }
 
 }

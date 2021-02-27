@@ -42,11 +42,6 @@ public class TicTacToe {
       return builder.toString();
     }
 
-    public static void main(String[] args) {
-        TicTacToe game = new TicTacToe('O');
-        System.out.println(game.toString());
-    }
-
     public void switchPlayer() {
         if (player == Board.O)
             player = Board.X;
@@ -71,29 +66,59 @@ public class TicTacToe {
     }
 
     public boolean checkWin() {
-//        Check if each element in each row are the same
         boolean isValid = false;
-        if(checkRowWin(Board.O) || checkRowWin(Board.X))
+        if(checkRowWin() || checkColumnWin() || checkDiagonalWin())
             isValid = true;
-//        check if each element in each column are the same
-//        Check if each element in diagonal direction are the same
         return isValid;
     }
 
-    private boolean checkRowWin(Board piece){
+    private boolean checkRowWin(){
+        boolean isValid = false;
         for (Board[] boards : board) {
-            for (int column = 0; column < boards.length; column++) {
-                if (boards[column] == piece) {
-                    if (column == board.length - 1) {
-                        return true;
-                    }
-                }
-                if (boards[column] != piece) {
+            if (checkRowAndColumnElement(boards[0], boards[1], boards[2])) {
+                isValid = true;
+                break;
+            }
+        }
+        return isValid;
+    }
+
+    private boolean checkColumnWin() {
+        boolean isValid = false;
+        for(int column = 0; column < board.length; column++){
+            if(checkRowAndColumnElement(board[0][column], board[1][column], board[2][column])){
+                isValid = true;
+                break;
+            }
+        }
+        return isValid;
+
+    }
+
+    private boolean checkDiagonalWin() {
+        boolean isValid = false;
+            if((checkRowAndColumnElement(board[0][0], board[1][1], board[2][2])) || (checkRowAndColumnElement(board[0][2], board[1][1], board[2][0]))){
+                isValid = true;
+        }
+        return isValid;
+
+    }
+
+
+    private boolean checkRowAndColumnElement(Board piece1, Board piece2, Board piece3){
+        boolean isEqual =  ((piece1 != Board.EMPTY) && (piece1 == piece2) && (piece2 == piece3));
+        return isEqual;
+    }
+
+    public boolean isFull() {
+        for (Board[] boards : board) {
+            for (Board value : boards) {
+                if (value == Board.EMPTY) {
                     return false;
                 }
             }
         }
-        return false;
+        return true;
     }
 }
 
