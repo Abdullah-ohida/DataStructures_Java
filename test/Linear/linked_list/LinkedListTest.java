@@ -1,5 +1,7 @@
 package Linear.linked_list;
 
+import Linear.linked_list.static_dataType.LinkedList;
+import Linear.linked_list.static_dataType.Node;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

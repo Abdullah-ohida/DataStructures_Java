@@ -1,4 +1,4 @@
-package Linear.linked_list;
+package Linear.linked_list.static_dataType;
 
 import java.util.NoSuchElementException;
 

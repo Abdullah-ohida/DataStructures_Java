@@ -1,4 +1,4 @@
-package Linear.array;
+package Linear.tictactoe;
 
 import java.util.Arrays;
 

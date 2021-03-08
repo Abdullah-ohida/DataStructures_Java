@@ -1,5 +1,7 @@
 package Linear.array;
 
+import Linear.tictactoe.Board;
+import Linear.tictactoe.TicTacToe;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -178,5 +180,6 @@ class TicTacToeTest {
 
         assertFalse(ticTacToe.isFull());
     }
+
 
 }
