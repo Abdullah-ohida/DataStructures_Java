@@ -1,26 +1,27 @@
 package Linear.linked_list.generic_dataType.singlyLinkedList;
 
-import Linear.linked_list.generic_dataType.circularLinkedList.CircularNode;
+import Linear.linked_list.generic_dataType.SinglyLinkedList;
+import Linear.linked_list.generic_dataType.CircularNode;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class GenericsLinkedListTest {
-    LinkedList<Integer> list;
+class GenericsSinglyDoublyLinkedListTest {
+    SinglyLinkedList<Integer> list;
     CircularNode<String> circularList;
 
     @BeforeEach
     void setUp() {
-        list = new LinkedList<>();
+        list = new SinglyLinkedList<>();
         circularList = new CircularNode<>();
     }
 
 
     @AfterEach
     void tearDown() {
-            list = new LinkedList<>();
+            list = new SinglyLinkedList<>();
     }
 
     @Test
@@ -32,7 +33,7 @@ class GenericsLinkedListTest {
 
     @Test
     void list_canGetFirstDataInLinkedList(){
-        LinkedList<String> list = new LinkedList<>();
+        SinglyLinkedList<String> list = new SinglyLinkedList<>();
         list.insertAtBeginning("Hello");
         assertEquals("Hello", list.getHead());
     }
@@ -47,7 +48,7 @@ class GenericsLinkedListTest {
 
     @Test
     void list_canAddDifferentDataTypeToFrontOfLinkedList(){
-        LinkedList<String> list = new LinkedList<>();
+        SinglyLinkedList<String> list = new SinglyLinkedList<>();
         list.insertAtBeginning("Hello");
         list.insertAtBeginning("Madam");
         assertEquals(list.getSize(), 2);
@@ -71,7 +72,7 @@ class GenericsLinkedListTest {
 
     @Test
     void list_canAddDifferentDataTypeAtTheEndLinkedList(){
-        LinkedList<String> list = new LinkedList<>();
+        SinglyLinkedList<String> list = new SinglyLinkedList<>();
         list.insertAtEnd("Hello");
         list.insertAtEnd("Madam");
         assertEquals(list.getSize(), 2);
@@ -106,19 +107,19 @@ class GenericsLinkedListTest {
     @Test
     void list_removeLastDataWhenLinkedListIsEmpty_ThrowsLinkedListUnderFlow(){
         assertTrue(list.isEmpty());
-        assertThrows(LinkedList.LinkedListUnderFlowException.class, ()-> list.removeFirst());
+        assertThrows(SinglyLinkedList.LinkedListUnderFlowException.class, ()-> list.removeFirst());
     }
 
     @Test
     void singlyList_accessFirstElementWhenListIsEmpty_ThrowsLinkedListUnderFlow(){
         assertTrue(circularList.isEmpty());
-        assertThrows(LinkedList.LinkedListUnderFlowException.class, ()-> list.getHead());
+        assertThrows(SinglyLinkedList.LinkedListUnderFlowException.class, ()-> list.getHead());
     }
 
     @Test
     void singlyList_accessEndElementWhenListIsEmpty_ThrowsLinkedListUnderFlow(){
         assertTrue(circularList.isEmpty());
-        assertThrows(LinkedList.LinkedListUnderFlowException.class, ()-> list.getTail());
+        assertThrows(SinglyLinkedList.LinkedListUnderFlowException.class, ()-> list.getTail());
     }
 
     @Test
@@ -174,18 +175,18 @@ class GenericsLinkedListTest {
     @Test
     void circularList_removeLastDataWhenLinkedListIsEmpty_ThrowsLinkedListUnderFlow(){
         assertTrue(circularList.isEmpty());
-        assertThrows(LinkedList.LinkedListUnderFlowException.class, ()-> circularList.removeFirst());
+        assertThrows(SinglyLinkedList.LinkedListUnderFlowException.class, ()-> circularList.removeFirst());
     }
 
     @Test
     void circularList_accessFirstElementWhenListIsEmpty_ThrowsLinkedListUnderFlow(){
         assertTrue(circularList.isEmpty());
-        assertThrows(LinkedList.LinkedListUnderFlowException.class, ()-> circularList.getHead());
+        assertThrows(SinglyLinkedList.LinkedListUnderFlowException.class, ()-> circularList.getHead());
     }
 
     @Test
     void circularList_accessEndElementWhenListIsEmpty_ThrowsLinkedListUnderFlow(){
         assertTrue(circularList.isEmpty());
-        assertThrows(LinkedList.LinkedListUnderFlowException.class, ()-> circularList.getTail());
+        assertThrows(SinglyLinkedList.LinkedListUnderFlowException.class, ()-> circularList.getTail());
     }
 }

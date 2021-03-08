@@ -1,4 +1,4 @@
-package Linear.linked_list.generic_dataType.singlyLinkedList;
+package Linear.linked_list.generic_dataType;
 
 public class Node<T> {
     private T data;

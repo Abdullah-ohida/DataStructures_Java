@@ -1,14 +1,12 @@
-package Linear.linked_list.generic_dataType.singlyLinkedList;
+package Linear.linked_list.generic_dataType;
 
-import Linear.linked_list.generic_dataType.Linkable;
-
-public class LinkedList<T> extends Linkable<T> {
+public class SinglyLinkedList<T> extends Linkable<T> {
     private Node<T> head;
     private Node<T> tail;
     private int size;
     String message = "Linked list is empty";
 
-    public LinkedList() {
+    public SinglyLinkedList() {
         this.head = null;
         this.tail = null;
         this.size = 0;
@@ -16,9 +14,8 @@ public class LinkedList<T> extends Linkable<T> {
 
     public void insertAtBeginning(T data) {
         head = new Node<>(data, head);
-        if(isEmpty()){
+        if(isEmpty())
             tail = head;
-        }
             size++;
     }
 

@@ -1,7 +1,4 @@
-package Linear.linked_list.generic_dataType.circularLinkedList;
-
-import Linear.linked_list.generic_dataType.Linkable;
-import Linear.linked_list.generic_dataType.singlyLinkedList.Node;
+package Linear.linked_list.generic_dataType;
 
 public class CircularNode<T> extends Linkable<T> {
     private Node<T> tail;

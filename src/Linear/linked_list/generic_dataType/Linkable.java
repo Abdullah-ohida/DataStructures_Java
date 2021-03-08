@@ -1,7 +1,5 @@
 package Linear.linked_list.generic_dataType;
 
-import Linear.linked_list.generic_dataType.singlyLinkedList.Node;
-
 public abstract class Linkable<T> {
     public abstract int getSize();
 
