@@ -1,5 +1,5 @@
 package Linear.tictactoe;
 
-public enum Board {
+public enum Cell {
     X, O, EMPTY
 }

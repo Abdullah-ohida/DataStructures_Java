@@ -1,35 +1,36 @@
 package Linear.tictactoe;
 
 import java.util.Arrays;
+import static Linear.tictactoe.Cell.*;
 
 public class TicTacToe {
-    private final Board[][] board;
-    private Board player;
+    private final Cell[][] cell;
+    private Cell player;
 
     public TicTacToe(char player) {
-        this.board = new Board[3][3];
-        this.player = player == 'X' ? Board.X : Board.O;
-        for (Board[] boards : board) {
-            Arrays.fill(boards, Board.EMPTY);
+        this.cell = new Cell[3][3];
+        this.player = player == 'X' ? X : O;
+        for (Cell[] cells : cell) {
+            Arrays.fill(cells, EMPTY);
         }
     }
 
-    public Board[][] getBoard() {
-        return board;
+    public Cell[][] getBoard() {
+        return cell;
     }
 
     public void clearBoard(){
-        for (Board[] boards : board) {
-            Arrays.fill(boards, Board.EMPTY);
+        for (Cell[] cells : cell) {
+            Arrays.fill(cells, EMPTY);
         }
     }
 
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-       for(int row = 0; row < board.length; row++){
-           for(int column = 0; column < board[row].length; column++){
-               switch (board[row][column]){
+       for(int row = 0; row < cell.length; row++){
+           for(int column = 0; column < cell[row].length; column++){
+               switch (cell[row][column]){
                    case EMPTY -> builder.append(" ");
                    case O -> builder.append("O");
                    case X -> builder.append("X");
@@ -44,50 +45,57 @@ public class TicTacToe {
     }
 
     public void switchPlayer() {
-        if (player == Board.O)
-            player = Board.X;
-        else
-            player = Board.O;
+        if (isEmpty(player, O)) player = X;
+        else player = O;
     }
 
-    public Board getPlayer() {
+    public Cell getPlayer() {
         return player;
     }
 
     public void play(int rowCount, int columnCount) {
-        if(rowCount < 0 || rowCount > board.length - 1 || columnCount < 0 || columnCount > board.length - 1){
-            throw new IllegalArgumentException("Invalid cell position");
-        }
-        if(board[rowCount][columnCount] != Board.EMPTY){
-            throw new IllegalArgumentException("Cell board is occupied");
-        }else{
-            board[rowCount][columnCount] = player;
-            switchPlayer();
-        }
+        boolean isInvalidCell = rowCount < 0 || rowCount > cell.length - 1 || columnCount < 0 || columnCount > cell.length - 1;
+        if(isInvalidCell) throw new IllegalArgumentException("Invalid cell position");
+
+        boolean isOccupied = cell[rowCount][columnCount] != EMPTY;
+        if(isOccupied) throw new IllegalArgumentException("Cell board is occupied");
+
+        else playOn(rowCount, columnCount);
+
+    }
+
+    private void playOn(int rowCount, int columnCount) {
+        cell[rowCount][columnCount] = player;
+        switchPlayer();
     }
 
     public boolean checkWin() {
-        boolean isValid = false;
-        if(checkRowWin() || checkColumnWin() || checkDiagonalWin())
-            isValid = true;
-        return isValid;
+        return isValidPattern();
+    }
+
+    private boolean isValidPattern() {
+        return checkRowWin() || checkColumnWin() || checkDiagonalWin();
     }
 
     private boolean checkRowWin(){
         boolean isValid = false;
-        for (Board[] boards : board) {
-            if (checkRowAndColumnElement(boards[0], boards[1], boards[2])) {
+        for (Cell[] cells : cell) {
+            if (isValidRowPattern(cells)) {
                 isValid = true;
                 break;
             }
         }
         return isValid;
+    }
+
+    private boolean isValidRowPattern(Cell[] cells) {
+        return checkRowAndColumnElement(cells[0], cells[1], cells[2]);
     }
 
     private boolean checkColumnWin() {
         boolean isValid = false;
-        for(int column = 0; column < board.length; column++){
-            if(checkRowAndColumnElement(board[0][column], board[1][column], board[2][column])){
+        for(int column = 0; column < cell.length; column++){
+            if(isValidColumnPattern(column)){
                 isValid = true;
                 break;
             }
@@ -96,30 +104,43 @@ public class TicTacToe {
 
     }
 
+    private boolean isValidColumnPattern(int column) {
+        return checkRowAndColumnElement(cell[0][column], cell[1][column], cell[2][column]);
+    }
+
     private boolean checkDiagonalWin() {
         boolean isValid = false;
-            if((checkRowAndColumnElement(board[0][0], board[1][1], board[2][2])) || (checkRowAndColumnElement(board[0][2], board[1][1], board[2][0]))){
+            if(isValidDiagonalPattern()){
                 isValid = true;
         }
         return isValid;
 
     }
 
+    private boolean isValidDiagonalPattern() {
+        return (checkRowAndColumnElement(cell[0][0], cell[1][1], cell[2][2])) ||
+                (checkRowAndColumnElement(cell[0][2], cell[1][1], cell[2][0]));
+    }
 
-    private boolean checkRowAndColumnElement(Board piece1, Board piece2, Board piece3){
-        boolean isEqual =  ((piece1 != Board.EMPTY) && (piece1 == piece2) && (piece2 == piece3));
-        return isEqual;
+
+    private boolean checkRowAndColumnElement(Cell firstPiece, Cell secondPiece, Cell thirdPiece){
+        boolean isEqualCell =  ((firstPiece != EMPTY) && (isEmpty(firstPiece, secondPiece)) && (isEmpty(secondPiece, thirdPiece)));
+        return isEqualCell;
     }
 
     public boolean isFull() {
-        for (Board[] boards : board) {
-            for (Board value : boards) {
-                if (value == Board.EMPTY) {
+        for (Cell[] cells : cell) {
+            for (Cell value : cells) {
+                if (isEmpty(value, EMPTY)) {
                     return false;
                 }
             }
         }
         return true;
+    }
+
+    private boolean isEmpty(Cell value, Cell empty) {
+        return value == empty;
     }
 }
 

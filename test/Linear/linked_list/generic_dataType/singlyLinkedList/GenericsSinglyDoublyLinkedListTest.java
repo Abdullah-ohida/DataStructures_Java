@@ -1,5 +1,6 @@
 package Linear.linked_list.generic_dataType.singlyLinkedList;
 
+import Linear.linked_list.generic_dataType.DoublyLinkedList;
 import Linear.linked_list.generic_dataType.SinglyLinkedList;
 import Linear.linked_list.generic_dataType.CircularNode;
 import org.junit.jupiter.api.AfterEach;
@@ -11,11 +12,13 @@ import static org.junit.jupiter.api.Assertions.*;
 class GenericsSinglyDoublyLinkedListTest {
     SinglyLinkedList<Integer> list;
     CircularNode<String> circularList;
+    DoublyLinkedList<Character> doublyList;
 
     @BeforeEach
     void setUp() {
         list = new SinglyLinkedList<>();
         circularList = new CircularNode<>();
+        doublyList = new DoublyLinkedList<>();
     }
 
 
@@ -188,5 +191,43 @@ class GenericsSinglyDoublyLinkedListTest {
     void circularList_accessEndElementWhenListIsEmpty_ThrowsLinkedListUnderFlow(){
         assertTrue(circularList.isEmpty());
         assertThrows(SinglyLinkedList.LinkedListUnderFlowException.class, ()-> circularList.getTail());
+    }
+
+
+    @Test
+    void doublyList_listCanBeEmpty(){
+        assertTrue(doublyList.isEmpty());
+    }
+
+    @Test
+    void doublyList_canAddDataAtTheBeginningOfAList(){
+        doublyList.insertAtBeginning('T');
+        assertEquals(doublyList.getHead(), 'T');
+        assertEquals(1, doublyList.getSize());
+    }
+
+    @Test
+    void doublyList_canAddMoreThanOneDataToAList(){
+        doublyList.insertAtBeginning('T');
+        doublyList.insertAtBeginning('H');
+        doublyList.insertAtBeginning('E');
+        assertEquals(doublyList.getHead(), 'T');
+        assertEquals(3, doublyList.getSize());
+    }
+
+    @Test
+    void doublyList_canAddDataAtTheEndOfAList(){
+        doublyList.insertAtBeginning('T');
+        assertEquals(doublyList.getTail(), 'T');
+        assertEquals(1, doublyList.getSize());
+    }
+
+    @Test
+    void doublyList_canAddMoreThanOneDataToTheEndOfAList(){
+        doublyList.insertAtEnd('T');
+        doublyList.insertAtEnd('H');
+        doublyList.insertAtEnd('E');
+        assertEquals(doublyList.getTail(), 'E');
+        assertEquals(3, doublyList.getSize());
     }
 }

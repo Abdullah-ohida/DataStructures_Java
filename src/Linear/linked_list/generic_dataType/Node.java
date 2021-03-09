@@ -3,10 +3,17 @@ package Linear.linked_list.generic_dataType;
 public class Node<T> {
     private T data;
     private Node<T> next;
+    private Node<T> prev;
 
     public Node(T data, Node<T> next) {
         this.data = data;
         this.next = next;
+    }
+
+    public Node(T data, Node<T> prev, Node<T> next) {
+        this.data = data;
+        this.next = next;
+        this.prev = prev;
     }
 
     public T getData() {
@@ -19,5 +26,13 @@ public class Node<T> {
 
     public void setNext(Node<T> next) {
         this.next = next;
+    }
+
+    public Node<T> getPrev() {
+        return prev;
+    }
+
+    public void setPrev(Node<T> prev) {
+        this.prev = prev;
     }
 }
