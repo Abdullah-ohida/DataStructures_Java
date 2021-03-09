@@ -3,49 +3,33 @@ package Linear.tictactoe;
 import java.security.SecureRandom;
 import java.util.Arrays;
 
-public class ComputerTictactoe{
+import static Linear.tictactoe.Cell.EMPTY;
 
-    private final Cell[][] cell;
+public class ComputerizeTicTacToe extends Playable{
     private Player player;
-    private Cell humanPiece;
-    private Cell computerPiece;
+    private final Cell humanPiece;
+    private final Cell computerPiece;
     int count = 0;
 
-    public ComputerTictactoe(char piece) {
-        if(piece == 'X'){
+    public ComputerizeTicTacToe(char piece) {
+        if (piece == 'X') {
             this.humanPiece = Cell.X;
             this.computerPiece = Cell.O;
-        }else {
+        } else {
             this.humanPiece = Cell.O;
             this.computerPiece = Cell.X;
         }
 
-        player = Player.HUMAN;
-        cell = new Cell[3][3];
         for (Cell[] cells : cell) {
-            Arrays.fill(cells, Cell.EMPTY);
+            Arrays.fill(cells, EMPTY);
         }
     }
 
-    public Cell[][] getCell() {
-        return cell;
-    }
-
-    public void clearCell(){
-        for (Cell[] cells : cell) {
-            Arrays.fill(cells, Cell.EMPTY);
-        }
-    }
-
-    public void switchPlayer() {
+    public void switchPlayer(){
         if (player == Player.COMPUTER)
             player = Player.HUMAN;
         else
             player = Player.COMPUTER;
-    }
-
-    public Player getPlayer() {
-        return player;
     }
 
     public void play(int rowCount, int columnCount){
@@ -68,33 +52,14 @@ public class ComputerTictactoe{
         }
     }
 
+
     public void computerPlay(){
         if(count == 1){
             playRandom();
             switchPlayer();
         }
-
-
     }
 
-    @Override
-    public String toString() {
-        StringBuilder builder = new StringBuilder();
-        for(int row = 0; row < cell.length; row++){
-            for(int column = 0; column < cell[row].length; column++){
-                switch (cell[row][column]){
-                    case EMPTY -> builder.append(" ");
-                    case O -> builder.append("O");
-                    case X -> builder.append("X");
-                }
-                if(column < 2)
-                    builder.append(" | ");
-            }
-            if (row < 2)
-                builder.append("\n---------\n");
-        }
-        return builder.toString();
-    }
 
     private void playRandom() {
         SecureRandom random = new SecureRandom();
@@ -108,7 +73,7 @@ public class ComputerTictactoe{
 
 
     public static void main(String[] args) {
-        ComputerTictactoe computerTictactoe = new ComputerTictactoe('X');
+        ComputerizeTicTacToe computerTictactoe = new ComputerizeTicTacToe('X');
         computerTictactoe.play(1, 0);
         computerTictactoe.play(2, 1);
         String tic = computerTictactoe.toString();
