@@ -19,17 +19,15 @@ public class TicTacToe extends Playable {
         else player = O;
     }
 
-    @Override
     public void play(int rowCount, int columnCount) {
-        if(rowCount < 0 || rowCount > cell.length - 1 || columnCount < 0 || columnCount > cell.length - 1){
-            throw new IllegalArgumentException("Invalid cell position");
-        }
-        if(cell[rowCount][columnCount] != Cell.EMPTY){
-            throw new IllegalArgumentException("Cell board is occupied");
-        }else{
-            cell[rowCount][columnCount] = player;
-            switchPlayer();
-        }
+        boolean isInvalidCell = rowCount < 0 || rowCount > cell.length - 1 || columnCount < 0 || columnCount > cell.length - 1;
+        if(isInvalidCell) throw new IllegalArgumentException("Invalid cell position");
+
+        boolean isOccupied = cell[rowCount][columnCount] != EMPTY;
+        if(isOccupied) throw new IllegalArgumentException("Cell board is occupied");
+
+        else playOn(rowCount, columnCount);
+
     }
 
     public Cell getPlayer() {

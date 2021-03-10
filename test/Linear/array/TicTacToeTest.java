@@ -1,6 +1,8 @@
 package Linear.array;
 
 import Linear.tictactoe.Cell;
+import Linear.tictactoe.ComputerizeTicTacToe;
+import Linear.tictactoe.Player;
 import Linear.tictactoe.TicTacToe;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,38 +13,41 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TicTacToeTest {
     TicTacToe ticTacToe;
+    ComputerizeTicTacToe autoPlay;
 
     @BeforeEach
     void setUp() {
         ticTacToe = new TicTacToe('X');
+        autoPlay = new ComputerizeTicTacToe('O');
        }
 
     @AfterEach
     void tearDown() {
+        autoPlay = null;
         ticTacToe = null;
     }
 
     @Test
     void TicTacToeBoard_canBeGet(){
-        assertNotNull(ticTacToe.getBoard());
+        assertNotNull(ticTacToe.getCell());
     }
 
 
     @Test
     void TicTacToeBoardIsEmptyAtCreation(){
-        for(int row = 0; row < ticTacToe.getBoard().length; row++){
-            for(int column = 0; column < ticTacToe.getBoard()[row].length; column++){
-                assertEquals(Cell.EMPTY, ticTacToe.getBoard()[row][column]);
+        for(int row = 0; row < ticTacToe.getCell().length; row++){
+            for(int column = 0; column < ticTacToe.getCell()[row].length; column++){
+                assertEquals(Cell.EMPTY, ticTacToe.getCell()[row][column]);
             }
         }
     }
 
     @Test
     void TicTacToeCanBeClear(){
-        ticTacToe.clearBoard();
-        for(int row = 0; row < ticTacToe.getBoard().length; row++){
-            for(int column = 0; column < ticTacToe.getBoard()[row].length; column++){
-                assertEquals(Cell.EMPTY, ticTacToe.getBoard()[row][column]);
+        ticTacToe.clearCell();
+        for(int row = 0; row < ticTacToe.getCell().length; row++){
+            for(int column = 0; column < ticTacToe.getCell()[row].length; column++){
+                assertEquals(Cell.EMPTY, ticTacToe.getCell()[row][column]);
             }
         }
     }
@@ -51,9 +56,9 @@ class TicTacToeTest {
     void TicTacToe_boardCanDisplay(){
         TicTacToe game = new TicTacToe('Y');
         assertNotNull(game.toString());
-        for(int row = 0; row < game.getBoard().length; row++){
-            for(int column = 0; column < game.getBoard()[row].length; column++){
-                assertEquals(Cell.EMPTY, game.getBoard()[row][column]);
+        for(int row = 0; row < game.getCell().length; row++){
+            for(int column = 0; column < game.getCell()[row].length; column++){
+                assertEquals(Cell.EMPTY, game.getCell()[row][column]);
             }
         }
     }
@@ -71,7 +76,7 @@ class TicTacToeTest {
     void TicTacToe_canPlayOnASpecificRowAndColumn(){
         ticTacToe.play(1, 2);
         System.out.println(ticTacToe.toString());
-        assertEquals(Cell.X, ticTacToe.getBoard()[1][2]);
+        assertEquals(Cell.X, ticTacToe.getCell()[1][2]);
 
     }
 
@@ -79,26 +84,26 @@ class TicTacToeTest {
     void TicTacToe_canPlayMoreThanOnceOnBoard(){
         ticTacToe.play(1, 2);
         System.out.println(ticTacToe.toString());
-        assertEquals(Cell.X, ticTacToe.getBoard()[1][2]);
+        assertEquals(Cell.X, ticTacToe.getCell()[1][2]);
 
         ticTacToe.play(2, 2);
         System.out.println(ticTacToe.toString());
-        assertEquals(Cell.O, ticTacToe.getBoard()[2][2]);
+        assertEquals(Cell.O, ticTacToe.getCell()[2][2]);
 
         ticTacToe.play(0, 0);
         System.out.println(ticTacToe.toString());
-        assertEquals(Cell.X, ticTacToe.getBoard()[0][0]);
+        assertEquals(Cell.X, ticTacToe.getCell()[0][0]);
     }
 
     @Test
     void TicTacToe_throwExceptionWhenPlayerPlayOnInvalidCell(){
-        assertThrows(IllegalArgumentException.class, ()->ticTacToe.play(3, 2));
+        assertThrows(IllegalArgumentException.class, ()-> ticTacToe.play(3, 2));
     }
 
     @Test
     void TicTacToe_throwExceptionWhenPlayerPlayOnTheOccupiedCell(){
         ticTacToe.play(1, 2);
-        assertThrows(IllegalArgumentException.class, ()->ticTacToe.play(1, 2));
+        assertThrows(IllegalArgumentException.class, ()-> ticTacToe.play(1, 2));
     }
 
 
@@ -113,7 +118,7 @@ class TicTacToeTest {
 
        assertTrue(ticTacToe.checkWin());
 
-        ticTacToe.clearBoard();
+        ticTacToe.clearCell();
         ticTacToe.play(0, 0);
         ticTacToe.play(1, 0);
         ticTacToe.play(0, 1);
@@ -184,51 +189,69 @@ class TicTacToeTest {
 
 
 //    Computer play human
-//    @Test
-//        void computerTicTacToeBoard_canBeGet(){
-//        assertNotNull(computer.getCell());
-//    }
-//
-//    @Test
-//    void computerTicTacToeBoardIsEmptyAtCreation(){
-//        for(int row = 0; row < computer.getCell().length; row++){
-//            for(int column = 0; column < computer.getCell()[row].length; column++){
-//                assertEquals(Cell.EMPTY, computer.getCell()[row][column]);
-//            }
-//        }
-//    }
-//
-//
-//    @Test
-//    void computerTicTacToeCanBeClear(){
-//       computer.clearCell();
-//        for(int row = 0; row < computer.getCell().length; row++){
-//            for(int column = 0; column < computer.getCell()[row].length; column++){
-//                assertEquals(Cell.EMPTY, computer.getCell()[row][column]);
-//            }
-//        }
-//    }
-//
-//    @Test
-//    void computerTicTacToe_boardCanDisplay(){
-//        ComputerTictactoe game = new ComputerTictactoe();
-//        assertNotNull(game.toString());
-//        for(int row = 0; row < game.getCell().length; row++){
-//            for(int column = 0; column < game.getCell()[row].length; column++){
-//                assertEquals(Cell.EMPTY, game.getCell()[row][column]);
-//            }
-//        }
-//    }
-//
-//
-//    @Test
-//    void computerTicTacToe_twoPlayerCanPlayInTurn(){
-//        assertEquals(Player.COMPUTER, computer.getPlayer());
-//
-//        computer.switchPlayer();
-//        assertEquals(Player.HUMAN, computer.getPlayer());
-//    }
-//
-//
-//
+    @Test
+        void computerTicTacToeBoard_canBeGet(){
+        assertNotNull(autoPlay.getCell());
+    }
+
+    @Test
+    void computerTicTacToeBoardIsEmptyAtCreation(){
+        for(int row = 0; row < autoPlay.getCell().length; row++){
+            for(int column = 0; column < autoPlay.getCell()[row].length; column++){
+                assertEquals(Cell.EMPTY, autoPlay.getCell()[row][column]);
+            }
+        }
+    }
+
+
+    @Test
+    void computerTicTacToeCanBeClear(){
+       autoPlay.clearCell();
+        for(int row = 0; row < autoPlay.getCell().length; row++){
+            for(int column = 0; column < autoPlay.getCell()[row].length; column++){
+                assertEquals(Cell.EMPTY, autoPlay.getCell()[row][column]);
+            }
+        }
+    }
+
+    @Test
+    void computerTicTacToe_boardCanDisplay(){
+        ComputerizeTicTacToe game = new ComputerizeTicTacToe('O');
+        assertNotNull(game.toString());
+        for(int row = 0; row < game.getCell().length; row++){
+            for(int column = 0; column < game.getCell()[row].length; column++){
+                assertEquals(Cell.EMPTY, game.getCell()[row][column]);
+            }
+        }
+    }
+
+
+    @Test
+    void computerTicTacToe_twoPlayerCanPlayInTurn(){
+       assertEquals(Player.HUMAN, autoPlay.getPlayer());
+       autoPlay.switchPlayer();
+       assertEquals(Player.COMPUTER, autoPlay.getPlayer());
+    }
+
+    @Test
+    void computerTiTacToe_canPlayOnASpecificRowAndColumn(){
+        autoPlay.play(1, 0);
+        autoPlay.play(1, 0);
+        assertEquals(Cell.O, autoPlay.getCell()[1][0]);
+    }
+
+    @Test
+    void computerTiTacToe_canPlayMoreThanOnceOnBoard(){
+        autoPlay.play(0, 0);
+        autoPlay.play(0, 0);
+        assertEquals(Cell.O, autoPlay.getCell()[0][0]);
+
+
+        autoPlay.play(1, 0);
+        autoPlay.play(1, 0);
+        assertEquals(Cell.O, autoPlay.getCell()[1][0]);
+        System.out.println(autoPlay.toString());
+
+    }
+
 }

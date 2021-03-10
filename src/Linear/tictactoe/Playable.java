@@ -15,12 +15,12 @@ public abstract class Playable {
         }
     }
 
-    public Cell[][] getBoard() {
+    public Cell[][] getCell() {
         return cell;
     }
 
 
-    public void clearBoard(){
+    public void clearCell(){
         for (Cell[] cells : cell) {
             Arrays.fill(cells, EMPTY);
         }

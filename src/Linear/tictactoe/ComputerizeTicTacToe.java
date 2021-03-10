@@ -9,9 +9,9 @@ public class ComputerizeTicTacToe extends Playable{
     private Player player;
     private final Cell humanPiece;
     private final Cell computerPiece;
-    int count = 0;
 
     public ComputerizeTicTacToe(char piece) {
+        player = Player.HUMAN;
         if (piece == 'X') {
             this.humanPiece = Cell.X;
             this.computerPiece = Cell.O;
@@ -25,11 +25,13 @@ public class ComputerizeTicTacToe extends Playable{
         }
     }
 
+    public Player getPlayer() {
+        return player;
+    }
+
     public void switchPlayer(){
-        if (player == Player.COMPUTER)
-            player = Player.HUMAN;
-        else
-            player = Player.COMPUTER;
+        if (player == Player.COMPUTER) player = Player.HUMAN;
+        else player = Player.COMPUTER;
     }
 
     public void play(int rowCount, int columnCount){
@@ -40,24 +42,25 @@ public class ComputerizeTicTacToe extends Playable{
     }
 
     public void humanPlay(int rowCount, int columnCount) {
-        if(rowCount < 0 || rowCount > cell.length - 1 || columnCount < 0 || columnCount > cell.length - 1){
-            throw new IllegalArgumentException("Invalid cell position");
-        }
-        if(cell[rowCount][columnCount] != Cell.EMPTY){
-            throw new IllegalArgumentException("Cell board is occupied");
-        }else{
-            cell[rowCount][columnCount] = humanPiece;
-            count++;
-            switchPlayer();
-        }
+        boolean isInvalidCell = rowCount < 0 || rowCount > cell.length - 1 || columnCount < 0 || columnCount > cell.length - 1;
+        if(isInvalidCell) throw new IllegalArgumentException("Invalid cell position");
+
+        boolean isOccupied = cell[rowCount][columnCount] != EMPTY;
+        if(isOccupied) throw new IllegalArgumentException("Cell board is occupied");
+
+        else playOn(rowCount, columnCount);
+
+    }
+
+    private void playOn(int rowCount, int columnCount) {
+        cell[rowCount][columnCount] = humanPiece;
+        switchPlayer();
     }
 
 
     public void computerPlay(){
-        if(count == 1){
             playRandom();
             switchPlayer();
-        }
     }
 
 
@@ -65,18 +68,14 @@ public class ComputerizeTicTacToe extends Playable{
         SecureRandom random = new SecureRandom();
         int row = random.nextInt(3);
         int column = random.nextInt(3);
-        if(cell[row][column] != Cell.EMPTY){
+        if(!isEmpty(cell[row][column])){
            playRandom();
         }
         cell[row][column] = computerPiece;
     }
 
-
-    public static void main(String[] args) {
-        ComputerizeTicTacToe computerTictactoe = new ComputerizeTicTacToe('X');
-        computerTictactoe.play(1, 0);
-        computerTictactoe.play(2, 1);
-        String tic = computerTictactoe.toString();
-        System.out.println(tic);
+    private boolean isEmpty(Cell cell1) {
+        return cell1 == Cell.EMPTY;
     }
+
 }
